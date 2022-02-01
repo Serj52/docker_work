@@ -1,6 +1,7 @@
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
-
+import os
+import time
 
 def set_chrome_options():
     # path_chrome = 'bin/google-chrome'
@@ -22,5 +23,9 @@ if __name__== '__main__':
     webdriver = webdriver.Chrome(options=set_chrome_options())
     webdriver.get('https://www.google.com/')
     webdriver.save_screenshot('screen.png')
-    print('Hello')
     webdriver.close()
+    # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'attach/readme.txt')
+    if os.path.isfile('/home/serj52/PycharmProjects/docker_work/attach/readme.txt'):
+        with open('source/text.txt') as file:
+            print(file.read())
+
