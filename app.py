@@ -1,7 +1,9 @@
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
+# from selenium.webdriver.chrome.options import Options
+# from selenium import webdriver
 import os
 import time
+import datetime
+from exchangelib import Credentials, Account, Configuration, DELEGATE, IMPERSONATION, Message, Mailbox
 
 def set_chrome_options():
     # path_chrome = 'bin/google-chrome'
@@ -20,12 +22,26 @@ def set_chrome_options():
     return chrome_options
 
 if __name__== '__main__':
-    webdriver = webdriver.Chrome(options=set_chrome_options())
-    webdriver.get('https://www.google.com/')
-    webdriver.save_screenshot('screen.png')
-    webdriver.close()
-    # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'attach/readme.txt')
-    if os.path.isfile('/home/serj52/PycharmProjects/docker_work/attach/readme.txt'):
-        with open('source/text.txt') as file:
-            print(file.read())
+    # webdriver = webdriver.Chrome(options=set_chrome_options())
+    # webdriver.get('https://www.google.com/')
+    # webdriver.save_screenshot('source/screen/screen.png')
+    # webdriver.close()
+    # # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'attach/readme.txt')
+    # # if os.path.isfile('/home/serj52/PycharmProjects/docker_work/attach/readme.txt'):
+    # with open('source/input.txt') as file:
+    #     print(file.read())
+    # with open('source/readme.txt') as file:
+    #     print(file.read())
 
+    server = 'mail.rosatom.ru'
+    email = 'GREN-r-000004@Greenatom.ru'
+    name = r'gk\GREN-r-000004'
+    password = 'Bayern2024'
+    credentials = Credentials(name, password)
+    config = Configuration(server=server, credentials=credentials)
+    account = Account(primary_smtp_address=email, config=config, credentials=credentials, autodiscover=True, access_type=DELEGATE)
+
+    count = 1
+    for item in account.inbox.all().order_by('-datetime_received')[:100]:
+        #{item.sender}, {item.datetime_received}
+        print(f'{count}. {item.subject}')

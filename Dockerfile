@@ -1,5 +1,5 @@
-#sudo docker build -t app .
-#df -h
+#sudo docker build -t app . создать образ
+#df -h  посмотреть своюодное место
 #sudo docker images
 #sudo docker rmi $(sudo docker images -q) -f Очистить все images
 #sudo docker run --rm --name web app Запуск контейнера с удалением
@@ -34,7 +34,8 @@ ENV DISPLAY=:99
 COPY . /app
 WORKDIR /app
 RUN pip install --upgrade pip
-RUN pip install selenium
+# RUN pip install selenium
+RUN pip install exchangelib
 # VOLUME /my-vol
 CMD ["python", "app.py"]
 
